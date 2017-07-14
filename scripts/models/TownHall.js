@@ -142,10 +142,25 @@
         url: 'https://congress.api.sunlightfoundation.com/legislators?per_page=all&state=' + state,
         dataType: 'jsonp'
       }).done(function(fullMoCs) {
+        var promiseArray = [];
         var MoCs = fullMoCs.results.filter(function(MoC) {
           return districts.indexOf(MoC.district) !== -1;
         });
-        resolve(MoCs);
+        MoCs.forEach(function(MoC) {
+          promiseArray.push(firebase.database().ref('/mocData/' + MoC.govtrack_id).once('value'));
+        });
+        Promise.all(promiseArray).then(function(THPMoCs) {
+          THPMoCs = THPMoCs.map(function(MoC) {
+            return MoC.val();
+          });
+          // Merge our MoC data with the Sunlight data
+          MoCs.forEach(function(MoC){
+            $.extend(MoC, THPMoCs.filter(function(THPMoC){
+              return parseInt(MoC.govtrack_id) === THPMoC.govtrack_id;
+            })[0]);
+          });
+          resolve(MoCs);
+        });
       }).fail(function() {
         reject('No MoC results returned');
       });
