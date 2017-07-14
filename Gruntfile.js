@@ -1,11 +1,12 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-        watch: {
+    watch: {
       scripts: {
         files: ['styles/customboot.less'],
         tasks: ['dist-css'],
         options: {
           spawn: false,
+          atBegin: true
         },
       },
     },
