@@ -251,8 +251,9 @@
       var townHalls = [townHall];
       recenterMap(townHalls, zipQuery);
       eventHandler.renderTableWithArray(events);
-      $text.html('There are no events within 75 miles of your zip, the closest one is ' + townHall.dist + ' miles away. <br>' + info);
+      $text.html('The closest event is ' + townHall.dist + ' miles away. <br>' + info);
       $results.append($text);
+      $('#header-no-events').removeClass('hidden');
       eventHandler.renderPanels(townHall, $parent);
     }
     else{
