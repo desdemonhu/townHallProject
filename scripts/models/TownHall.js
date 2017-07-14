@@ -128,12 +128,28 @@
     });
   };
 
-  TownHall.lookupReps = function (zip) {
-    var representativePromise = $.ajax({
-      url: 'https://congress.api.sunlightfoundation.com/legislators/locate?zip=' + zip,
-      dataType: 'jsonp'
+  TownHall.lookupReps = function (districts) {
+    return new Promise(function (resolve, reject) {
+      var state = districts[0].split('-')[0];
+      districts = districts.map(function(district) {
+        return parseInt(district.split('-')[1]);
+      });
+      districts.push(null);
+
+      // Sunlight allows you to filter by districts...but if you do then senators don't show up, so we pull them all and look
+      // for those with matching districts or no district at all.
+      $.ajax({
+        url: 'https://congress.api.sunlightfoundation.com/legislators?per_page=all&state=' + state,
+        dataType: 'jsonp'
+      }).done(function(fullMoCs) {
+        var MoCs = fullMoCs.results.filter(function(MoC) {
+          return districts.indexOf(MoC.district) !== -1;
+        });
+        resolve(MoCs);
+      }).fail(function() {
+        reject('No MoC results returned');
+      });
     });
-    return representativePromise;
   };
 
   // given a zip, returns sorted array of events

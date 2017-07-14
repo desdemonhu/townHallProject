@@ -27,7 +27,9 @@
         setUrlParameter('zipcode', zip);
         eventHandler.resetFilters();
         eventHandler.render(sorted, TownHall.zipQuery);
-        eventHandler.renderRepresentativeCards(TownHall.lookupReps(zipLookup), $('#representativeCards section'));
+        TownHall.zipToDistrict(zip).then(function(districts) {
+          eventHandler.renderRepresentativeCards(TownHall.lookupReps(districts), $('#representativeCards section'));
+        });
         $('#email-title').text('Sign up to get updates about events in ' + zipLookup + '.');
         $('.email-signup--inline form input[name=zipcode]').val(zipLookup);
       })
@@ -83,10 +85,10 @@
   // Display a list of reps with contact info
   eventHandler.renderRepresentativeCards = function(representativePromise, $parent) {
     $parent.empty(); // If they search for a new zipcode clear the old info
-    representativePromise.success(function(representatives) {
+    representativePromise.then(function(representatives) {
       var compiledTemplate = Handlebars.getTemplate('representativeCard');
       $parent.append('<h2 class="text-primary text-center">Your Representatives</h2>');
-      representatives.results.forEach(function(rep) {
+      representatives.forEach(function(rep) {
         switch(rep.party) {
         case 'R':
           rep.party = 'Republican';
@@ -103,7 +105,7 @@
         rep.electionYear = termEnd.getMonth() === 0 ? termEnd.getFullYear() - 1 : termEnd.getFullYear();
         $parent.append(compiledTemplate(rep));
       });
-      if (representatives.results.length > 3) {
+      if (representatives.length > 3) {
         $parent.append('<h4 class="col-md-12 text-center">Your zip code encompasses more than one district.<br><small><a href="http://www.house.gov/representatives/find/">Learn More</a></small></h4>');
       }
       $parent.parent().show();
