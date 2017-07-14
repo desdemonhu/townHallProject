@@ -83,35 +83,44 @@
     </nav>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane page active" id="home">
+        <section class="background-light-blue hidden" id="header-no-events">
+          <div class="container container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <h2>There are no events near you, but you can still make your be voice heard!</h2>
+                <h3>Call, tweet, and email <a href="#representativeCards">your members of congress</a>. Author a letter to the editor in your local newspaper. Work with <a href="https://swingleft.org/" target="_blank">SwingLeft</a> to help competitive districts near you. Join a local <a href="https://www.indivisibleguide.com/act-locally/" target="_blank">indivisible group</a>. Target the issues most important to you with <a href="https://5calls.org/" target="_blank">5calls</a>.</h3>
+              </div>
+            </div>
+          </div>
+        </section>
         <header class="site-header clearfix">
-           <section class=" container container-fluid">
-             <div class="row">
-               <div class="col-md-6 left-panels">
-                  <div  class=" text-left site-header clearfix displayoff ">
-                    <div class="form-text-results col-md-12">
-                      <div class="text-toggle header-large">
-                        <img src="/Images/THP_logo_inverse.png" alt="">
-                      </div>
-                      <div class="text-toggle header-small hidden ">
-                        <!-- <img src="/Images/THP_logo_inverse_simple.png" alt=""> -->
-                      </div>
+          <section class="container container-fluid">
+            <div class="row">
+              <div class="col-md-6 left-panels">
+                <div class=" text-left site-header clearfix displayoff ">
+                  <div class="form-text-results col-md-12">
+                    <div class="text-toggle header-large">
+                      <img src="/Images/THP_logo_inverse.png" alt="">
+                    </div>
+                    <div class="text-toggle header-small hidden">
+                      <!-- <img src="/Images/THP_logo_inverse_simple.png" alt=""> -->
                     </div>
                   </div>
-                </div>
-                <div class="col-md-6 right-panels">
-                  <div class="spacer">
-                  </div>
-                  <form id="look-up" class="form-inline text-center" action="index.html" method="post">
-                    <div class="form-group text-center">
-                      <label  for="zip"></label>
-                      <input class="form-control input-lg " type="zip" name="" value="" placeholder="Zip Code">
-                      <button type="submit" name="button" class="btn btn-primary btn-lg">Find A Town Hall</button>
-                    </div>
-                  </form>
-                  <div id="textresults" class="text-center "></div>
                 </div>
               </div>
-            </section>
+              <div class="col-md-6 right-panels">
+                <div class="spacer"></div>
+                <form id="look-up" class="form-inline text-center" action="index.html" method="post">
+                  <div class="form-group text-center">
+                    <label for="zip"></label>
+                    <input class="form-control input-lg " type="zip" name="" value="" placeholder="Zip Code">
+                    <button type="submit" name="button" class="btn btn-primary btn-lg">Find A Town Hall</button>
+                  </div>
+                </form>
+                <div id="textresults" class="text-center"></div>
+              </div>
+            </div>
+          </section>
         </header>
         <div class="container-fluid">
           <div class="row map-large">
