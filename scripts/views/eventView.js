@@ -45,6 +45,7 @@
     $('.header-small').hide();
     $('.header-large').fadeIn();
     $('#look-up input').val('');
+    $('#header-no-events').hide();
     $('#email-signup-form input[name=zipcode]').val('');
     $('#representativeCards section').empty();
     $('#representativeCards').hide();
@@ -213,6 +214,7 @@
   // renders results of search
   eventHandler.render = function (events, zipQuery) {
     $('[data-toggle="popover"]').popover('hide');
+    $('#header-no-events').hide();
     $('.header-small').removeClass('hidden');
     $('.header-small').fadeIn();
     $('.header-large').hide();
@@ -253,7 +255,7 @@
       eventHandler.renderTableWithArray(events);
       $text.html('The closest event is ' + townHall.dist + ' miles away. <br>' + info);
       $results.append($text);
-      $('#header-no-events').removeClass('hidden');
+      $('#header-no-events').show();
       eventHandler.renderPanels(townHall, $parent);
     }
     else{
